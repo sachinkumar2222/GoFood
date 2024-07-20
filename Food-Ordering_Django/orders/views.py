@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
     if request.user.is_authenticated:
         #we are passing in the data from the category model
-        return render(request, "orders/home.html", {"categories":Category.objects.all})
+        return render(request, "home.html", {"categories":Category.objects.all})
     else:
         return redirect("orders:login")
 
@@ -29,7 +29,7 @@ def login_request(request):
 
     form = AuthenticationForm()
     return render(request = request,
-                    template_name = "orders/login.html",
+                    template_name = "login.html",
                     context={"form":form})
 
 def logout_request(request):
@@ -46,67 +46,67 @@ def register(request):
             return redirect("orders:index")
 
         return render(request = request,
-                          template_name = "orders/register.html",
+                          template_name = "register.html",
                           context={"form":form})
 
     return render(request = request,
-                  template_name = "orders/register.html",
+                  template_name = "register.html",
                   context={"form":UserCreationForm})
 
 def pizza(request):
     if request.user.is_authenticated:
-        return render(request, "orders/pizza.html", context = {"regular_pizza":RegularPizza.objects.all, "sicillian_pizza":SicilianPizza.objects.all , "toppings":Toppings.objects.all, "number_of_toppings":[1,2,3]})
+        return render(request, "pizza.html", context = {"regular_pizza":RegularPizza.objects.all, "sicillian_pizza":SicilianPizza.objects.all , "toppings":Toppings.objects.all, "number_of_toppings":[1,2,3]})
     else:
         return redirect("orders:login")
 
 def pasta(request):
     if request.user.is_authenticated:
-        return render(request, "orders/pasta.html", context = {"dishes":Pasta.objects.all})
+        return render(request, "pasta.html", context = {"dishes":Pasta.objects.all})
     else:
         return redirect("orders:login")
 
 
 def salad(request):
     if request.user.is_authenticated:
-        return render(request, "orders/salad.html", context = {"dishes":Salad.objects.all})
+        return render(request, "salad.html", context = {"dishes":Salad.objects.all})
     else:
         return redirect("orders:login")
 
 
 def subs(request):
     if request.user.is_authenticated:
-        return render(request, "orders/sub.html", context = {"dishes":Sub.objects.all})
+        return render(request, "sub.html", context = {"dishes":Sub.objects.all})
     else:
         return redirect("orders:login")
 
 
 def dinner_platters(request):
     if request.user.is_authenticated:
-        return render(request, "orders/dinner_platters.html", context = {"dishes":DinnerPlatters.objects.all})
+        return render(request, "dinner_platters.html", context = {"dishes":DinnerPlatters.objects.all})
     else:
         return redirect("orders:login")
 
 def directions(request):
     if request.user.is_authenticated:
-        return render(request, "orders/directions.html")
+        return render(request, "directions.html")
     else:
         return redirect("orders:login")
 
 def hours(request):
     if request.user.is_authenticated:
-        return render(request, "orders/hours.html")
+        return render(request, "hours.html")
     else:
         return redirect("orders:login")
 
 def contact(request):
     if request.user.is_authenticated:
-        return render(request, "orders/contact.html")
+        return render(request, "contact.html")
     else:
         return redirect("orders:login")
 
 def cart(request):
     if request.user.is_authenticated:
-        return render(request, "orders/cart.html")
+        return render(request, "cart.html")
     else:
         return redirect("orders:login")
 
@@ -139,10 +139,10 @@ def view_orders(request):
         rows = UserOrder.objects.all().order_by('-time_of_order')
         #orders.append(row.order[1:-1].split(","))
 
-        return render(request, "orders/orders.html", context = {"rows":rows})
+        return render(request, "orders.html", context = {"rows":rows})
     else:
         rows = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
-        return render(request, "orders/orders.html", context = {"rows":rows})
+        return render(request, "orders.html", context = {"rows":rows})
 
 def mark_order_as_delivered(request):
     if request.method == 'POST':
